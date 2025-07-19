@@ -69,7 +69,7 @@ const students = [
   }
 ];
 
-const departments = ["Computer Science", "Mathematics", "Physics", "Chemistry", "Biology"];
+const departments = ["Computer", "Mechanical", "Electronics", "Civil", "Innovation"];
 
 export function StudentManagement() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -102,26 +102,26 @@ export function StudentManagement() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-4 md:space-y-6 p-4 md:p-0">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-bold text-foreground">Student Management</h2>
-          <p className="text-muted-foreground">Manage student registrations and track attendance</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground">Student Management</h2>
+          <p className="text-sm md:text-base text-muted-foreground">Manage CoE student registrations and track attendance</p>
         </div>
         
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-primary hover:bg-primary-hover">
+            <Button className="bg-primary hover:bg-primary-hover w-full sm:w-auto">
               <UserPlus className="mr-2 h-4 w-4" />
               Add Student
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-md">
+          <DialogContent className="max-w-md mx-4">
             <DialogHeader>
               <DialogTitle>Add New Student</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="firstName">First Name</Label>
                   <Input id="firstName" placeholder="John" />
@@ -134,17 +134,17 @@ export function StudentManagement() {
               
               <div>
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="john.doe@university.edu" />
+                <Input id="email" type="email" placeholder="john.doe@citchennai.net" />
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="studentId">Student ID</Label>
                   <Input id="studentId" placeholder="STU006" />
                 </div>
                 <div>
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" placeholder="+1 (555) 123-4567" />
+                  <Input id="phone" placeholder="+91 9876543210" />
                 </div>
               </div>
               
@@ -176,32 +176,32 @@ export function StudentManagement() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
         <div className="flex-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />
             <Input
               placeholder="Search students by name, email, or ID..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-8 md:pl-10 text-sm"
             />
           </div>
         </div>
         <Select value={filterDepartment} onValueChange={setFilterDepartment}>
-          <SelectTrigger className="w-full sm:w-[180px]">
-            <SelectValue placeholder="All Departments" />
+          <SelectTrigger className="w-full sm:w-[160px]">
+            <SelectValue placeholder="All Clusters" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Departments</SelectItem>
+            <SelectItem value="all">All Clusters</SelectItem>
             {departments.map(dept => (
               <SelectItem key={dept} value={dept}>{dept}</SelectItem>
             ))}
           </SelectContent>
         </Select>
         <Select value={filterAttendance} onValueChange={setFilterAttendance}>
-          <SelectTrigger className="w-full sm:w-[150px]">
-            <SelectValue placeholder="All Attendance" />
+          <SelectTrigger className="w-full sm:w-[140px]">
+            <SelectValue placeholder="Attendance" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Attendance</SelectItem>
@@ -213,19 +213,19 @@ export function StudentManagement() {
       </div>
 
       {/* Students Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
         {filteredStudents.map((student) => (
           <Card key={student.id} className="hover:shadow-md transition-shadow">
-            <CardHeader className="pb-4">
+            <CardHeader className="pb-3 md:pb-4">
               <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-3">
-                  <Avatar>
+                <div className="flex items-center space-x-2 md:space-x-3 min-w-0 flex-1">
+                  <Avatar className="h-8 w-8 md:h-10 md:w-10">
                     <AvatarImage src={student.avatar} alt={student.name} />
-                    <AvatarFallback>{student.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                    <AvatarFallback className="text-xs md:text-sm">{student.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                   </Avatar>
-                  <div>
-                    <CardTitle className="text-lg">{student.name}</CardTitle>
-                    <p className="text-sm text-muted-foreground">{student.studentId}</p>
+                  <div className="min-w-0 flex-1">
+                    <CardTitle className="text-sm md:text-lg truncate">{student.name}</CardTitle>
+                    <p className="text-xs md:text-sm text-muted-foreground">{student.studentId}</p>
                   </div>
                 </div>
                 <DropdownMenu>
@@ -244,26 +244,26 @@ export function StudentManagement() {
                 </DropdownMenu>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-3 md:space-y-4">
               <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-sm">
-                  <Mail className="h-3 w-3 text-muted-foreground" />
+                <div className="flex items-center space-x-2 text-xs md:text-sm">
+                  <Mail className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                   <span className="text-muted-foreground truncate">{student.email}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <Phone className="h-3 w-3 text-muted-foreground" />
+                <div className="flex items-center space-x-2 text-xs md:text-sm">
+                  <Phone className="h-3 w-3 text-muted-foreground flex-shrink-0" />
                   <span className="text-muted-foreground">{student.phone}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm">
-                  <Book className="h-3 w-3 text-muted-foreground" />
-                  <span className="text-muted-foreground">{student.department}</span>
+                <div className="flex items-center space-x-2 text-xs md:text-sm">
+                  <Book className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+                  <span className="text-muted-foreground">{student.department} Cluster</span>
                 </div>
               </div>
               
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium">Attendance Rate</span>
-                  <Badge className={getAttendanceBadge(student.attendanceRate)}>
+                  <span className="text-xs md:text-sm font-medium">Attendance Rate</span>
+                  <Badge className={`${getAttendanceBadge(student.attendanceRate)} text-xs`}>
                     {student.attendanceRate.toFixed(1)}%
                   </Badge>
                 </div>
@@ -279,7 +279,7 @@ export function StudentManagement() {
               </div>
               
               <div>
-                <p className="text-sm font-medium mb-1">Enrolled Classes</p>
+                <p className="text-xs md:text-sm font-medium mb-1">Enrolled CoEs</p>
                 <div className="flex flex-wrap gap-1">
                   {student.enrolledClasses.map((cls) => (
                     <Badge key={cls} variant="secondary" className="text-xs">
@@ -294,8 +294,8 @@ export function StudentManagement() {
       </div>
 
       {filteredStudents.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-muted-foreground">No students found matching your criteria.</p>
+        <div className="text-center py-8 md:py-12">
+          <p className="text-sm md:text-base text-muted-foreground">No students found matching your criteria.</p>
         </div>
       )}
     </div>
