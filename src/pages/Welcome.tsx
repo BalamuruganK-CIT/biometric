@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const navigate = useNavigate();
+  
+  console.log("Welcome component rendering...");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-accent/10">
